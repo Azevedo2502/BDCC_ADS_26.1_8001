@@ -15,12 +15,11 @@ Aula 10 - 29/04/2026 | :material-check: [RDS](https://awseducate.instructure.com
 Aula 11 - 06/05/2026 | :material-check: Ausência  |
 Aula 12 - 13/06/2026 | :material-check: Rest RDS |
 Aula 13 - 20/06/2026 | :material-check: Rest S3|
-Aula 14 - 27/06/2026 | :material-check:  |
+Aula 14 - 27/06/2026 | :material-check: [Rest RDS e Rest S3](https://github.com/jonh-carvalho/apiawsEB) |
 Aula 15 - 03/06/2026 | :material-check:  |
-Aula 16 - 10/06/2026 | :material-check: AP2 |
-Aula 17 - 17/06/2026 | :material-check:  |
+Aula 16 - 10/06/2026 | :material-check:  |
+Aula 17 - 17/06/2026 | :material-check: AP2 |
 Aula 18 - 24/06/2026 | :material-check: AS |
-
 
 
 <!--
