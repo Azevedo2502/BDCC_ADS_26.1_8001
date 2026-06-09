@@ -8,7 +8,7 @@
 
 Evoluir o projeto da AP1 (Django Rest + deploy em Elastic Beanstalk) para uma arquitetura em nuvem mais próxima de produção, com:
 
-- Banco de dados gerenciado no **AWS RDS PostgreSQL**
+- Banco de dados gerenciado no **AWS RDS MySqlQL**
 - Armazenamento de arquivos de mídia dos produtos em **AWS S3**
 
 ## Introdução
@@ -25,13 +25,13 @@ Você deverá manter a API funcional, atualizar configurações de ambiente e co
 Você já possui um projeto Django Rest com as entidades da AP1 (incluindo `Produto` e a nova classe criada). Agora deve:
 
 1. Evoluir para um pequeno e-commerce com carrinho de compras(Pedido, itens do Pedido, etc.), integrando o modelo de dados existente.
-2. Configurar o projeto para usar **PostgreSQL no AWS RDS** em vez de SQLite.
+2. Configurar o projeto para usar **MySqlQL no AWS RDS** em vez de SQLite.
 3. Criar um **bucket S3** e configurar o Django para salvar e servir os arquivos de mídia dos produtos no bucket.
 4. Validar a aplicação deployada no Elastic Beanstalk com as novas integrações.
 
 ## Requisitos Técnicos Mínimos
 
-- Projeto Django Rest atualizado para PostgreSQL (RDS)
+- Projeto Django Rest atualizado para MySqlQL (RDS)
 - Uso de variáveis de ambiente para dados sensíveis (host, usuário, senha, nome do banco, bucket, chaves)
 - Upload de mídia de produto persistindo no S3
 - Endpoints da API funcionando no ambiente AWS
@@ -60,9 +60,9 @@ Você já possui um projeto Django Rest com as entidades da AP1 (incluindo `Prod
 2. Criar branch específica para AP2.
 3. Garantir que o projeto rode localmente antes de iniciar as mudanças.
 
-### Parte 2 - Banco AWS RDS PostgreSQL
+### Parte 2 - Banco AWS RDS MySqlQL
 
-1. Criar instância PostgreSQL no RDS.
+1. Criar instância MySqlQL no RDS.
 2. Configurar segurança de rede (security groups) para permitir conexão da aplicação.
 3. Ajustar `settings.py` para ler configurações do banco via variáveis de ambiente.
 4. Executar migrações no novo banco.
@@ -85,47 +85,9 @@ Você já possui um projeto Django Rest com as entidades da AP1 (incluindo `Prod
 	- Upload e leitura de mídia no S3
 	- Conectividade com RDS
 
-### Parte 5 - Extensão opcional: JSONB com JSONField
-
-Objetivo: aplicar um aspecto orientado a documento dentro do PostgreSQL para atributos variáveis do e-commerce.
-
-1. Adicionar no modelo `Produto` (ou modelo relacionado) um campo `JSONField` para metadados dinâmicos.
-2. Persistir esse campo no PostgreSQL (tipo `JSONB`).
-3. Implementar ao menos 2 consultas filtrando dados dentro do JSON (ex.: marca, RAM, cor, tamanho, especificações técnicas).
-4. Demonstrar um caso combinado de filtro relacional + JSON (ex.: categoria + atributo do JSON).
-
-Exemplo de estrutura esperada para o campo JSON:
-
-```json
-{
-	"marca": "Dell",
-	"ram_gb": 16,
-	"cor": "preto",
-	"especificacoes": {
-		"cpu": "i7",
-		"armazenamento": "512GB SSD"
-	}
-}
-```
-
-Evidências desta parte opcional:
-
-- Print de um registro salvo com JSONField preenchido.
-- Print de ao menos 2 consultas com filtros no JSON.
-- Breve explicação no README sobre quando usar campo relacional e quando usar JSONField.
-
-## Evidências Obrigatórias
-
-- URL pública da API funcionando
-- Prints (ou GIFs) de:
-  - Console RDS (instância ativa)
-  - Console S3 (arquivos de mídia enviados)
-  - Requisição da API criando/atualizando produto com mídia
-  - Django Admin com login de administrador
-
 ## Critérios de Correção
 
-- Configuração correta e funcional do RDS PostgreSQL
+- Configuração correta e funcional do RDS MySqlQL
 - Configuração correta e funcional do S3 para mídia
 - Integração da API com banco e mídia em nuvem
 - Uso adequado de variáveis de ambiente e boas práticas de configuração
@@ -134,7 +96,7 @@ Evidências desta parte opcional:
 
 ## Rubrica de Pontuação (10,0 pontos)
 
-1. **Modelagem e integração com RDS PostgreSQL (2,5 pontos)**
+1. **Modelagem e integração com RDS MySqlQL (2,5 pontos)**
 	- 2,5: integração completa e funcional no ambiente AWS
 	- 1,5: integração parcial, com inconsistências ou ajustes pendentes
 	- 0,5: tentativa sem funcionamento estável
@@ -161,9 +123,9 @@ Evidências desta parte opcional:
 
 ### Observações de Avaliação
 
-- Trabalhos sem link da API em produção terão desconto mínimo de 2,0 pontos.
-- Trabalhos sem evidências de RDS e S3 terão desconto mínimo de 2,0 pontos.
-- A ausência de instruções para criação do usuário admin(root) poderá reduzir até 1,0 ponto.
+- Trabalhos sem link da API em produção terão desconto mínimo de 0.5 pontos.
+- Trabalhos sem evidências de RDS e S3 terão desconto mínimo de 0.5 pontos/cada.
+- A ausência de instruções para criação do usuário admin(root) poderá reduzir até 0.5 ponto.
 
 ## Diferenciais (Bônus)
 
@@ -171,13 +133,10 @@ Evidências desta parte opcional:
 - Tratamento de erros de upload e validações adicionais
 - Checklist de troubleshooting no README
 - Script/comando de bootstrap para facilitar setup local
-- Uso de `JSONField` no Django com consultas em `JSONB` no PostgreSQL (até +1,0 ponto)
 
 ## Referências
 
 - [Documentação Django Rest Framework](https://www.django-rest-framework.org/)
 - [Deploy Python/Django no AWS Elastic Beanstalk](https://docs.aws.amazon.com/pt_br/elasticbeanstalk/latest/dg/create-deploy-python-django.html)
-- [Amazon RDS para PostgreSQL](https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html)
+- [Amazon RDS para MySqlQL](https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/CHAP_MySqlQL.html)
 - [Amazon S3](https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/Welcome.html)
-- [Roteiro de aula - Elastic Beanstalk](https://jonh-carvalho.github.io/BDCC_CDIA_26.1_8001/Disciplina/roteiros/07%20-%20eb/)
-
