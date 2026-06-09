@@ -15,7 +15,7 @@ Evoluir o projeto da AP1 (Django Rest + deploy em Elastic Beanstalk) para uma ar
 
 Na AP1, você criou uma nova classe no projeto e publicou a API na AWS. Nesta AP2, o foco é tornar a solução mais robusta e escalável, separando responsabilidades:
 
-- **Dados relacionais** no PostgreSQL (RDS)
+- **Dados relacionais** no MySqlL (RDS)
 - **Mídia estática dos produtos** (imagens/arquivos) no S3
 
 Você deverá manter a API funcional, atualizar configurações de ambiente e comprovar o funcionamento fim a fim.
