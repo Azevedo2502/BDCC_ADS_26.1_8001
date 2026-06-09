@@ -1141,9 +1141,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parte-2-banco-aws-rds-postgresql" class="md-nav__link">
+  <a href="#parte-2-banco-aws-rds-mysqlql" class="md-nav__link">
     <span class="md-ellipsis">
-      Parte 2 - Banco AWS RDS PostgreSQL
+      Parte 2 - Banco AWS RDS MySqlQL
     </span>
   </a>
   
@@ -1167,26 +1167,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#parte-5-extensao-opcional-jsonb-com-jsonfield" class="md-nav__link">
-    <span class="md-ellipsis">
-      Parte 5 - Extensão opcional: JSONB com JSONField
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#evidencias-obrigatorias" class="md-nav__link">
-    <span class="md-ellipsis">
-      Evidências Obrigatórias
-    </span>
-  </a>
   
 </li>
       
@@ -1312,7 +1294,7 @@
 <h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
 <p>Evoluir o projeto da AP1 (Django Rest + deploy em Elastic Beanstalk) para uma arquitetura em nuvem mais próxima de produção, com:</p>
 <ul>
-<li>Banco de dados gerenciado no <strong>AWS RDS PostgreSQL</strong></li>
+<li>Banco de dados gerenciado no <strong>AWS RDS MySqlQL</strong></li>
 <li>Armazenamento de arquivos de mídia dos produtos em <strong>AWS S3</strong></li>
 </ul>
 <h2 id="introducao">Introdução<a class="headerlink" href="#introducao" title="Permanent link">&para;</a></h2>
@@ -1326,13 +1308,13 @@
 <p>Você já possui um projeto Django Rest com as entidades da AP1 (incluindo <code>Produto</code> e a nova classe criada). Agora deve:</p>
 <ol>
 <li>Evoluir para um pequeno e-commerce com carrinho de compras(Pedido, itens do Pedido, etc.), integrando o modelo de dados existente.</li>
-<li>Configurar o projeto para usar <strong>PostgreSQL no AWS RDS</strong> em vez de SQLite.</li>
+<li>Configurar o projeto para usar <strong>MySqlQL no AWS RDS</strong> em vez de SQLite.</li>
 <li>Criar um <strong>bucket S3</strong> e configurar o Django para salvar e servir os arquivos de mídia dos produtos no bucket.</li>
 <li>Validar a aplicação deployada no Elastic Beanstalk com as novas integrações.</li>
 </ol>
 <h2 id="requisitos-tecnicos-minimos">Requisitos Técnicos Mínimos<a class="headerlink" href="#requisitos-tecnicos-minimos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Projeto Django Rest atualizado para PostgreSQL (RDS)</li>
+<li>Projeto Django Rest atualizado para MySqlQL (RDS)</li>
 <li>Uso de variáveis de ambiente para dados sensíveis (host, usuário, senha, nome do banco, bucket, chaves)</li>
 <li>Upload de mídia de produto persistindo no S3</li>
 <li>Endpoints da API funcionando no ambiente AWS</li>
@@ -1364,9 +1346,9 @@
 <li>Criar branch específica para AP2.</li>
 <li>Garantir que o projeto rode localmente antes de iniciar as mudanças.</li>
 </ol>
-<h3 id="parte-2-banco-aws-rds-postgresql">Parte 2 - Banco AWS RDS PostgreSQL<a class="headerlink" href="#parte-2-banco-aws-rds-postgresql" title="Permanent link">&para;</a></h3>
+<h3 id="parte-2-banco-aws-rds-mysqlql">Parte 2 - Banco AWS RDS MySqlQL<a class="headerlink" href="#parte-2-banco-aws-rds-mysqlql" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Criar instância PostgreSQL no RDS.</li>
+<li>Criar instância MySqlQL no RDS.</li>
 <li>Configurar segurança de rede (security groups) para permitir conexão da aplicação.</li>
 <li>Ajustar <code>settings.py</code> para ler configurações do banco via variáveis de ambiente.</li>
 <li>Executar migrações no novo banco.</li>
@@ -1391,43 +1373,9 @@
 </ul>
 </li>
 </ol>
-<h3 id="parte-5-extensao-opcional-jsonb-com-jsonfield">Parte 5 - Extensão opcional: JSONB com JSONField<a class="headerlink" href="#parte-5-extensao-opcional-jsonb-com-jsonfield" title="Permanent link">&para;</a></h3>
-<p>Objetivo: aplicar um aspecto orientado a documento dentro do PostgreSQL para atributos variáveis do e-commerce.</p>
-<ol>
-<li>Adicionar no modelo <code>Produto</code> (ou modelo relacionado) um campo <code>JSONField</code> para metadados dinâmicos.</li>
-<li>Persistir esse campo no PostgreSQL (tipo <code>JSONB</code>).</li>
-<li>Implementar ao menos 2 consultas filtrando dados dentro do JSON (ex.: marca, RAM, cor, tamanho, especificações técnicas).</li>
-<li>Demonstrar um caso combinado de filtro relacional + JSON (ex.: categoria + atributo do JSON).</li>
-</ol>
-<p>Exemplo de estrutura esperada para o campo JSON:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;marca&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dell&quot;</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;ram_gb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&quot;cor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;preto&quot;</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">&quot;especificacoes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;i7&quot;</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="nt">&quot;armazenamento&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;512GB SSD&quot;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Evidências desta parte opcional:</p>
-<ul>
-<li>Print de um registro salvo com JSONField preenchido.</li>
-<li>Print de ao menos 2 consultas com filtros no JSON.</li>
-<li>Breve explicação no README sobre quando usar campo relacional e quando usar JSONField.</li>
-</ul>
-<h2 id="evidencias-obrigatorias">Evidências Obrigatórias<a class="headerlink" href="#evidencias-obrigatorias" title="Permanent link">&para;</a></h2>
-<ul>
-<li>URL pública da API funcionando</li>
-<li>Prints (ou GIFs) de:</li>
-<li>Console RDS (instância ativa)</li>
-<li>Console S3 (arquivos de mídia enviados)</li>
-<li>Requisição da API criando/atualizando produto com mídia</li>
-<li>Django Admin com login de administrador</li>
-</ul>
 <h2 id="criterios-de-correcao">Critérios de Correção<a class="headerlink" href="#criterios-de-correcao" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Configuração correta e funcional do RDS PostgreSQL</li>
+<li>Configuração correta e funcional do RDS MySqlQL</li>
 <li>Configuração correta e funcional do S3 para mídia</li>
 <li>Integração da API com banco e mídia em nuvem</li>
 <li>Uso adequado de variáveis de ambiente e boas práticas de configuração</li>
@@ -1437,7 +1385,7 @@
 <h2 id="rubrica-de-pontuacao-100-pontos">Rubrica de Pontuação (10,0 pontos)<a class="headerlink" href="#rubrica-de-pontuacao-100-pontos" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Modelagem e integração com RDS PostgreSQL (2,5 pontos)</strong></p>
+<p><strong>Modelagem e integração com RDS MySqlQL (2,5 pontos)</strong></p>
 <ul>
 <li>2,5: integração completa e funcional no ambiente AWS</li>
 <li>1,5: integração parcial, com inconsistências ou ajustes pendentes</li>
@@ -1479,9 +1427,9 @@
 </ol>
 <h3 id="observacoes-de-avaliacao">Observações de Avaliação<a class="headerlink" href="#observacoes-de-avaliacao" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Trabalhos sem link da API em produção terão desconto mínimo de 2,0 pontos.</li>
-<li>Trabalhos sem evidências de RDS e S3 terão desconto mínimo de 2,0 pontos.</li>
-<li>A ausência de instruções para criação do usuário admin(root) poderá reduzir até 1,0 ponto.</li>
+<li>Trabalhos sem link da API em produção terão desconto mínimo de 0.5 pontos.</li>
+<li>Trabalhos sem evidências de RDS e S3 terão desconto mínimo de 0.5 pontos/cada.</li>
+<li>A ausência de instruções para criação do usuário admin(root) poderá reduzir até 0.5 ponto.</li>
 </ul>
 <h2 id="diferenciais-bonus">Diferenciais (Bônus)<a class="headerlink" href="#diferenciais-bonus" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1489,15 +1437,13 @@
 <li>Tratamento de erros de upload e validações adicionais</li>
 <li>Checklist de troubleshooting no README</li>
 <li>Script/comando de bootstrap para facilitar setup local</li>
-<li>Uso de <code>JSONField</code> no Django com consultas em <code>JSONB</code> no PostgreSQL (até +1,0 ponto)</li>
 </ul>
 <h2 id="referencias">Referências<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.django-rest-framework.org/">Documentação Django Rest Framework</a></li>
 <li><a href="https://docs.aws.amazon.com/pt_br/elasticbeanstalk/latest/dg/create-deploy-python-django.html">Deploy Python/Django no AWS Elastic Beanstalk</a></li>
-<li><a href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html">Amazon RDS para PostgreSQL</a></li>
+<li><a href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/CHAP_MySqlQL.html">Amazon RDS para MySqlQL</a></li>
 <li><a href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/Welcome.html">Amazon S3</a></li>
-<li><a href="https://jonh-carvalho.github.io/BDCC_CDIA_26.1_8001/Disciplina/roteiros/07%20-%20eb/">Roteiro de aula - Elastic Beanstalk</a></li>
 </ul>
 
 
